@@ -1,0 +1,63 @@
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import ZodiacCard from '../components/ZodiacCard';
+import { zodiacSigns } from '../data/zodiacData';
+
+export default function HomeScreen({ navigation }) {
+  return (
+    <LinearGradient
+      colors={['#1a1a2e', '#16213e']}
+      style={styles.container}
+    >
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Celestial Guide</Text>
+        <Text style={styles.headerSubtitle}>Daily Zodiac Insights</Text>
+      </View>
+
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.gridContainer}>
+          {zodiacSigns.map((sign) => (
+            <ZodiacCard
+              key={sign.name}
+              sign={sign}
+              onPress={() => navigation.navigate('ZodiacDetail', { sign })}
+            />
+          ))}
+        </View>
+      </ScrollView>
+    </LinearGradient>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  header: {
+    padding: 20,
+    paddingTop: 60,
+  },
+  headerTitle: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
+  },
+  headerSubtitle: {
+    fontSize: 16,
+    color: '#a0a0c0',
+    textAlign: 'center',
+    marginTop: 5,
+  },
+  scrollView: {
+    flex: 1,
+  },
+  gridContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
+    padding: 10,
+  },
+});
